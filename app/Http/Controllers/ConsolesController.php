@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produtos;
+use App\Models\Consoles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class ProdutosController extends Controller
+class ConsolesController extends Controller
 {
     /**
-     * Listar todos os produtos
+     * Listar todos os consoles
      */
     public function index()
     {
-        $registros = Produtos::all();
+        $registros = Consoles::all();
         $contador = $registros->count();
 
         if ($contador > 0) {
@@ -39,7 +39,8 @@ class ProdutosController extends Controller
         $validator = Validator::make($request->all(), [
             'nome'  => 'required',
             'marca' => 'required',
-            'preco' => 'required|numeric'
+            'preco' => 'required|numeric',
+            'ano' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -50,13 +51,13 @@ class ProdutosController extends Controller
             ], 400);
         }
 
-        $produto = Produtos::create($request->all());
+        $console = Consoles::create($request->all());
 
-        if ($produto) {
+        if ($console) {
             return response()->json([
                 'success' => true,
-                'message' => 'Produto cadastrado com sucesso!',
-                'data'    => $produto
+                'message' => 'Console cadastrado com sucesso!',
+                'data'    => $console
             ], 201);
         }
 
@@ -71,13 +72,13 @@ class ProdutosController extends Controller
      */
     public function show($id)
     {
-        $produto = Produtos::find($id);
+        $console = Consoles::find($id);
 
-        if ($produto) {
+        if ($console) {
             return response()->json([
                 'success' => true,
-                'message' => 'Produto localizado com sucesso!',
-                'data'    => $produto
+                'message' => 'Console localizado com sucesso!',
+                'data'    => $console
             ], 200);
         }
 
@@ -95,7 +96,8 @@ class ProdutosController extends Controller
         $validator = Validator::make($request->all(), [
             'nome'  => 'required',
             'marca' => 'required',
-            'preco' => 'required|numeric'
+            'preco' => 'required|numeric',
+            'ano' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -106,24 +108,25 @@ class ProdutosController extends Controller
             ], 400);
         }
 
-        $produto = Produtos::find($id);
+        $console = Consoles::find($id);
 
-        if (!$produto) {
+        if (!$console) {
             return response()->json([
                 'success' => false,
-                'message' => 'Produto não encontrado'
+                'message' => 'Console não encontrado'
             ], 404);
         }
 
-        $produto->nome  = $request->nome;
-        $produto->marca = $request->marca;
-        $produto->preco = $request->preco;
+        $console->nome  = $request->nome;
+        $console->marca = $request->marca;
+        $console->preco = $request->preco;
+        $console->ano = $request->ano;
 
-        if ($produto->save()) {
+        if ($console->save()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Produto atualizado com sucesso!',
-                'data'    => $produto
+                'message' => 'Console atualizado com sucesso!',
+                'data'    => $console
             ], 200);
         }
 
@@ -138,19 +141,19 @@ class ProdutosController extends Controller
      */
     public function destroy($id)
     {
-        $produto = Produtos::find($id);
+        $console = Consoles::find($id);
 
-        if (!$produto) {
+        if (!$console) {
             return response()->json([
                 'success' => false,
-                'message' => 'Produto não encontrado'
+                'message' => 'Console não encontrado'
             ], 404);
         }
 
-        if ($produto->delete()) {
+        if ($console->delete()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Produto deletado com sucesso'
+                'message' => 'Console deletado com sucesso'
             ], 200);
         }
 
