@@ -6,11 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Consoles extends Model
 {
-    protected $fillable = [
-        'nome',
-        'marca',
-        'preco',
-        'ano',
-];
+    protected $fillable = ['nome', 'marca', 'preco', 'ano'];
 
+    public $timestamps = false; 
 }

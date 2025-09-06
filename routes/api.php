@@ -1,18 +1,15 @@
 <?php
 
-use App\Http\Controller\ConsolesControler;
-use Illuminate\Http\Request;
+use App\Http\Controllers\ConsolesController;
 use Illuminate\Support\Facades\Route;
 
-//rotas para visualizar os registros
-Route::get('/',function(){return response()->json(['Sucesso'=>true]);});
-Route::get('/Consoles', [ConsolesController::class,'show']);
-Route::get('/Consoles/{codigo}',[ConsolesController::class,'store']);
+Route::get('/', function () {
+    return response()->json(['sucesso' => true]);
+});
 
-//rota para alterar os registros 
-Route::post('/Consoles',[ConsolesController::class,'update']);
+Route::get('/consoles', [ConsolesController::class, 'index']);
+Route::get('/consoles/{codigo}', [ConsolesController::class, 'show']);
 
-//rota para excluiir o registro por id/codigo
-Route::delete('/Consoles/{id}', [ConsolesController::class,'destroy']);
-
-
+Route::post('/consoles', [ConsolesController::class, 'store']);
+Route::put('/consoles/{id}', [ConsolesController::class, 'update']);
+Route::delete('/consoles/{id}', [ConsolesController::class, 'destroy']);

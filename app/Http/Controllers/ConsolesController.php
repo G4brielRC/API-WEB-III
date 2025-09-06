@@ -6,6 +6,7 @@ use App\Models\Consoles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+
 class ConsolesController extends Controller
 {
     /**
